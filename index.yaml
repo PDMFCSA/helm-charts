@@ -1250,6 +1250,20 @@ entries:
   ethadapter:
   - apiVersion: v2
     appVersion: 3.0.0-rc3
+    created: "2025-01-02T11:14:01.151256314Z"
+    description: A Helm chart for Pharma Ledger Ethereum Adapter Service
+    digest: 5dcd092d15a1b5c6d957c5a888f14d2773728bf83b05da269856703fc2620640
+    icon: https://avatars.githubusercontent.com/u/60230259?s=200&v=4
+    maintainers:
+    - name: skutner
+      url: https://github.com/skutner
+    name: ethadapter
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/ethadapter-0.7.20/ethadapter-0.7.20.tgz
+    version: 0.7.20
+  - apiVersion: v2
+    appVersion: 3.0.0-rc3
     created: "2024-04-04T07:08:41.438537615Z"
     description: A Helm chart for Pharma Ledger Ethereum Adapter Service
     digest: e6a17de3b9f4cd377a4a60d428b4a2be297bd1213fa8ff4241ba69fbb406da70
@@ -1720,6 +1734,22 @@ entries:
   grafana:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2025-01-02T11:14:01.25012459Z"
+    description: A Helm chart for Grafana
+    digest: 1dc744b3e9627468d43df5d0450dbbd1661902a2d10b6d748fdf70bbb63edbf6
+    icon: https://avatars.githubusercontent.com/u/60230259?s=200&v=4
+    maintainers:
+    - name: mastaleru
+      url: https://github.com/mastaleru
+    - name: paiusCatalin
+      url: https://github.com/paiusCatalin
+    name: grafana
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/grafana-0.0.3/grafana-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2022-12-13T06:53:05.958061786Z"
     description: A Helm chart for Grafana
     digest: b51d7e5a5dac22270b4bb25e8317bd0a9ea71dd57dfee0a9ea3303f783b36e34
@@ -2021,6 +2051,22 @@ entries:
   prometheus:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2025-01-02T11:14:01.355336423Z"
+    description: A Helm chart for Prometheus
+    digest: 0156a2f0da84e599c6adaecfe7934934577ee4dd3edf75d5ee4620a1292c0355
+    icon: https://avatars.githubusercontent.com/u/60230259?s=200&v=4
+    maintainers:
+    - name: mastaleru
+      url: https://github.com/mastaleru
+    - name: paiusCatalin
+      url: https://github.com/paiusCatalin
+    name: prometheus
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/prometheus-0.0.4/prometheus-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2022-12-16T08:07:50.198942783Z"
     description: A Helm chart for Prometheus
     digest: 9c2ad3cdf17370c9be1a8b751c098a9232ac078a145c044a2d1010ba8de81594
@@ -2068,6 +2114,17 @@ entries:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/prometheus-0.0.1/prometheus-0.0.1.tgz
     version: 0.0.1
   quorum-node:
+  - apiVersion: v2
+    appVersion: 23.4.0-securityFix2
+    created: "2025-01-02T11:14:01.469385591Z"
+    description: A Helm chart for the deployment of the quorum node on Kubernetes
+      supporting new-network, join-network and update-partners-info use cases.
+    digest: 72a61b031d19a718b9ed76946199563b8e52228428f7a645f94fa92c62643708
+    name: quorum-node
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/quorum-node-0.7.2/quorum-node-0.7.2.tgz
+    version: 0.7.2
   - apiVersion: v2
     appVersion: 23.4.0-securityFix2
     created: "2024-04-04T07:08:41.604539724Z"
@@ -2511,6 +2568,16 @@ entries:
   quorum-node-metrics-exporter:
   - apiVersion: v2
     appVersion: v0.2
+    created: "2025-01-02T11:14:01.560090766Z"
+    description: A Helm chart for [quorum-node-metrics-exporter](https://github.com/pharmaledgerassoc/quorum-node-metrics-exporter)
+    digest: e596eb6e02886447ae275e0914d141995a8d555f938c55b0721d0948348e74d7
+    name: quorum-node-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/quorum-node-metrics-exporter-0.2.3/quorum-node-metrics-exporter-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: v0.2
     created: "2022-11-25T12:13:09.339175195Z"
     description: A Helm chart for [quorum-node-metrics-exporter](https://github.com/pharmaledgerassoc/quorum-node-metrics-exporter)
     digest: 3d50760526c40cc163bc460e1aa5209947f19bf86f2a51b3573bcde636414a0d
@@ -2621,6 +2688,16 @@ entries:
   standalone-quorum:
   - apiVersion: v2
     appVersion: 21.10.2
+    created: "2025-01-02T11:14:01.655861707Z"
+    description: A Helm chart for a standalone Quorum network adapted from https://github.com/ConsenSys/quorum-kubernetes/tree/master/playground/kubectl/quorum-go/ibft
+    digest: 9ae4a5d6e6bfa9bb333089424b50dbdd997eda260ddf5b3683fa8a68b4b09e4a
+    name: standalone-quorum
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/standalone-quorum-0.3.3/standalone-quorum-0.3.3.tgz
+    version: 0.3.3
+  - apiVersion: v2
+    appVersion: 21.10.2
     created: "2022-12-15T15:49:08.724156097Z"
     description: A Helm chart for a standalone Quorum network adapted from https://github.com/ConsenSys/quorum-kubernetes/tree/master/playground/kubectl/quorum-go/ibft
     digest: 49f54667b4c0d0fa071c916aa9b030e422593a09d4387e7899fa5eda6daf335d
@@ -2649,4 +2726,4 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/standalone-quorum-0.3.0/standalone-quorum-0.3.0.tgz
     version: 0.3.0
-generated: "2024-12-31T18:28:10.655335635Z"
+generated: "2025-01-02T11:14:01.657451064Z"
