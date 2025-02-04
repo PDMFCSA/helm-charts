@@ -547,6 +547,18 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: 4.0.0-rc
+    created: "2025-02-04T13:25:31.63688471Z"
+    description: A Helm chart for Pharma Ledger epi (electronic product information)
+      application
+    digest: 26fd1f65a0360ff6d80a7f4c713ac906a7c14a32dedf7536554ed60790cf58f0
+    icon: https://avatars.githubusercontent.com/u/60230259?s=200&v=4
+    name: epi
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/epi-0.7.18-rc/epi-0.7.18-rc.tgz
+    version: 0.7.18-rc
+  - apiVersion: v2
+    appVersion: 4.0.0-rc
     created: "2025-02-03T17:54:40.970719071Z"
     description: A Helm chart for Pharma Ledger epi (electronic product information)
       application
@@ -2834,4 +2846,4 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/standalone-quorum-0.3.0/standalone-quorum-0.3.0.tgz
     version: 0.3.0
-generated: "2025-02-03T17:54:40.97161394Z"
+generated: "2025-02-04T13:25:31.63790686Z"
