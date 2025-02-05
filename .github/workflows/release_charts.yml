@@ -10,6 +10,7 @@ on:
     branches:
       - master
       - 4.0.0-rc
+      - 4.0.0-rc-local
   workflow_dispatch:
 
 jobs:
