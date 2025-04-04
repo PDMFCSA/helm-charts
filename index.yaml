@@ -666,6 +666,18 @@ entries:
     - https://github.com/PDMFCSA/helm-charts/releases/download/epi-0.7.11/epi-0.7.11.tgz
     version: 0.7.11
   - apiVersion: v2
+    appVersion: 4.0.0-rc5
+    created: "2025-04-04T14:34:40.18907207Z"
+    description: A Helm chart for Pharma Ledger epi (electronic product information)
+      application
+    digest: 61ecee8db695763febab1802bb5084aaa93f7f11d56d14d2ae2baad922691bdc
+    icon: https://avatars.githubusercontent.com/u/60230259?s=200&v=4
+    name: epi
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/epi-0.7.11-rc5/epi-0.7.11-rc5.tgz
+    version: 0.7.11-rc5
+  - apiVersion: v2
     appVersion: 4.0.0-rc4
     created: "2025-03-19T19:12:05.558052535Z"
     description: A Helm chart for Pharma Ledger epi (electronic product information)
@@ -703,10 +715,10 @@ entries:
     version: 0.7.11-rc3
   - apiVersion: v2
     appVersion: 4.0.0-rc2
-    created: "2025-02-18T10:50:48.716881811Z"
+    created: "2025-02-20T16:47:28.100527067Z"
     description: A Helm chart for Pharma Ledger epi (electronic product information)
       application
-    digest: 288e1285e59a1494223d8b468e5bcdf48d1512a1ff2eef14d8aae6128cc6dfde
+    digest: 54dbeb98823e6ecbf24a541a8c4731c013a190cc5c0ea8702daedb05e2558eae
     icon: https://avatars.githubusercontent.com/u/60230259?s=200&v=4
     name: epi
     type: application
@@ -715,10 +727,10 @@ entries:
     version: 0.7.11-rc2
   - apiVersion: v2
     appVersion: 4.0.0-rc2
-    created: "2025-02-20T16:47:28.100527067Z"
+    created: "2025-02-18T10:50:48.716881811Z"
     description: A Helm chart for Pharma Ledger epi (electronic product information)
       application
-    digest: 54dbeb98823e6ecbf24a541a8c4731c013a190cc5c0ea8702daedb05e2558eae
+    digest: 288e1285e59a1494223d8b468e5bcdf48d1512a1ff2eef14d8aae6128cc6dfde
     icon: https://avatars.githubusercontent.com/u/60230259?s=200&v=4
     name: epi
     type: application
@@ -2918,4 +2930,4 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/standalone-quorum-0.3.0/standalone-quorum-0.3.0.tgz
     version: 0.3.0
-generated: "2025-03-19T19:12:05.559323304Z"
+generated: "2025-04-04T14:34:40.190197068Z"
