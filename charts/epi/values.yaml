@@ -85,7 +85,7 @@ runner:
   image:
     # -- The repository of the container image for the runner
     # <!-- # pragma: allowlist secret -->
-    repository: "dregistry.pdmfc.com/pdmfcsa/epi-runner"  # pragma: allowlist secret
+    repository: "public.ecr.aws/s6w3n1u5/epi-runner"  # pragma: allowlist secret
     # -- Image Pull Policy for the runner
     pullPolicy: Always
     # -- Overrides the image tag whose default is the chart appVersion.
@@ -179,7 +179,7 @@ builder:
   image:
     # -- The repository of the container image for the builder.
     # <!-- # pragma: allowlist secret -->
-    repository: "dregistry.pdmfc.com/pdmfcsa/epi-builder"  # pragma: allowlist secret
+    repository: "public.ecr.aws/s6w3n1u5/epi-builder"  # pragma: allowlist secret
     # -- Image Pull Policy for the builder.
     pullPolicy: Always
     # -- Image tag for the builder.
