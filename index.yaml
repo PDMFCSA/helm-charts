@@ -2934,8 +2934,6 @@ entries:
     appVersion: 3.3.2
     created: "2025-04-22T12:00:00Z"
     description: A custom CouchDB Helm chart with user setup and secrets integration
-    digest: 61ecee8db695763febab1802bb5084aaa93f7f11d56d14d2ae2baad922691bdc
-    icon: https://upload.wikimedia.org/wikipedia/commons/f/f0/CouchDB.svg
     name: couchdb
     type: application
     urls:
