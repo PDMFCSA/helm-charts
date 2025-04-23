@@ -2930,4 +2930,16 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/standalone-quorum-0.3.0/standalone-quorum-0.3.0.tgz
     version: 0.3.0
+  - apiVersion: v2
+    appVersion: 3.3.2
+    created: "2025-04-22T12:00:00Z"
+    description: A custom CouchDB Helm chart with user setup and secrets integration
+    digest: 61ecee8db695763febab1802bb5084aaa93f7f11d56d14d2ae2baad922691bdc
+    icon: https://upload.wikimedia.org/wikipedia/commons/f/f0/CouchDB.svg
+    name: couchdb
+    type: application
+    urls:
+      - https://github.com/PDMFCSA/helm-charts/releases/download/couchdb-custom-0.1.0/couchdb-custom-0.1.0.tgz
+    version: 0.1.0
+
 generated: "2025-04-04T14:34:40.190197068Z"
