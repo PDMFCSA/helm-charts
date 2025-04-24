@@ -22,13 +22,13 @@ spec:
               COUCHDB_USER_PASSWORD=$(cat /mnt/secrets/reader_passwd | tr -d '\n\r')
               curl -X PUT -u "admin:$COUCHDB_ADMIN_PASSWORD" http://couchdb-svc-couchdb:5984/_users
               curl -X PUT -u "admin:$COUCHDB_ADMIN_PASSWORD" http://couchdb-svc-couchdb:5984/_users/org.couchdb.user:reader \
-                   -H "Content-Type: application/json" \
-                   -d '{
-                         "name": "reader",
-                         "password": "'$COUCHDB_USER_PASSWORD'",
-                         "roles": [],
-                         "type": "user"
-                       }'
+                    -H "Content-Type: application/json" \
+                    -d '{
+                          "name": "reader",
+                          "password": "'$COUCHDB_USER_PASSWORD'",
+                          "roles": [],
+                          "type": "user"
+                        }'
           volumeMounts:
             - name: couchdb-secret
               mountPath: "/mnt/secrets"
