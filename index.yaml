@@ -42,6 +42,32 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/blockchain-explorer-0.1.2/blockchain-explorer-0.1.2.tgz
     version: 0.1.2
+  couchdb:
+  - apiVersion: v2
+    appVersion: 3.3.2
+    created: "2025-04-22T12:00:00Z"
+    description: A custom CouchDB Helm chart with user setup and secrets integration
+    name: couchdb
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/couchdb-custom-0.1.0/couchdb-custom-0.1.0.tgz
+    version: 0.1.0
+  couchdb-custom:
+  - apiVersion: v2
+    appVersion: 3.3.3
+    created: "2025-04-28T09:36:21.145426659Z"
+    dependencies:
+    - name: couchdb
+      repository: https://apache.github.io/couchdb-helm
+      version: 4.6.0
+    description: A Helm chart to extend the official CouchDB chart with AWS Secrets
+      integration.
+    digest: 31b4d1e1325e2d3ad4c0ac3a85bfdf67885ec17dc8048209c5896b099ec450f6
+    name: couchdb-custom
+    type: application
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/couchdb-custom-0.1.1/couchdb-custom-0.1.1.tgz
+    version: 0.1.1
   csc:
   - apiVersion: v2
     appVersion: csc.1.1.0
@@ -2930,15 +2956,4 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/standalone-quorum-0.3.0/standalone-quorum-0.3.0.tgz
     version: 0.3.0
-  couchdb:
-  - apiVersion: v2
-    appVersion: 3.3.2
-    created: "2025-04-22T12:00:00Z"
-    description: A custom CouchDB Helm chart with user setup and secrets integration
-    name: couchdb
-    type: application
-    urls:
-    - https://github.com/PDMFCSA/helm-charts/releases/download/couchdb-custom-0.1.0/couchdb-custom-0.1.0.tgz
-    version: 0.1.0
-
-generated: "2025-04-23T14:34:40.190197068Z"
+generated: "2025-04-28T09:36:21.145821216Z"
