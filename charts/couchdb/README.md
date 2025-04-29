@@ -132,7 +132,7 @@ This chart replaces the `stable/couchdb` chart previously hosted by Helm and con
 version semantics. You can upgrade directly from `stable/couchdb` to this chart using:
 
 ```bash
-$ helm repo add couchdb https://apache.github.io/couchdb-helm
+$ helm repo add pharmaledgerassoc https://apache.github.io/couchdb-helm
 $ helm upgrade my-release --version=4.6.1 couchdb/couchdb
 ```
 
