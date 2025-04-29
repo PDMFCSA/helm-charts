@@ -5,5 +5,6 @@ chart-dirs:
   - charts
 chart-repos:
   - pharmaledgerassoc=https://pharmaledgerassoc.github.io/helm-charts
+  - couchdb=https://apache.github.io/couchdb-helm
 helm-extra-args: --timeout 600s
 validate-maintainers: false

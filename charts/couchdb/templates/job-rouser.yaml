@@ -1,0 +1,94 @@
+{{- if .Values.readerUserSetup -}}
+{{- if and .Values.readerUserSetup.enabled .Values.service.enabled -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-create-couchdb-user"
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+  annotations:
+    "helm.sh/hook": create-couchdb-user
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}-create-couchdb-user"
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    spec:
+      restartPolicy: OnFailure
+      {{- if .Values.podSecurityContext }}
+      securityContext: {{ .Values.podSecurityContext | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.serviceAccount.enabled }}
+      serviceAccountName: {{ template "couchdb.serviceAccount" . }}
+      {{- end }}
+      containers:
+        - name: curl
+          image: curlimages/curl:latest
+          command:
+            - "sh"
+            - "-c"
+            - |
+              while ! curl -s -f http://$COUCHDB_ADDRESS; do
+                echo "Waiting for CouchDB to be ready..."
+                sleep 5
+              done
+              curl -X PUT -u "$COUCHDB_ADMIN:$COUCHDB_ADMIN_PASSWORD" http://$COUCHDB_ADDRESS/_users
+              curl -X PUT -u "$COUCHDB_ADMIN:$COUCHDB_ADMIN_PASSWORD" http://$COUCHDB_ADDRESS/_users/org.couchdb.user:reader \
+                   -H "Content-Type: application/json" \
+                   -d '{
+                         "name": "reader",
+                         "password": "'$COUCHDB_READER_PASSWORD'",
+                         "roles": [],
+                         "type": "user"
+                       }'
+          env:
+            - name: COUCHDB_ADDRESS
+              value: "{{ template "couchdb.svcname" . }}.{{ .Release.Namespace }}.svc.{{ default "cluster.local" .Values.dns.clusterDomainSuffix }}:{{ .Values.service.externalPort}}"
+{{- if not .Values.allowAdminParty }}
+{{- if .Values.secretProviderClass.enabled }}
+            - name: COUCHDB_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "couchdb.fullname" . }}-secrets
+                  key: COUCHDB_ADMIN
+            - name: COUCHDB_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "couchdb.fullname" . }}-secrets
+                  key: COUCHDB_ADMIN_PASSWORD
+            - name: COUCHDB_READER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "couchdb.fullname" . }}-secrets
+                  key: COUCHDB_READER_PASSWORD
+{{- else }}
+            - name: COUCHDB_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.extraSecretName | default (include "couchdb.fullname" .) }}
+                  key: {{ .Values.adminUsernameKey | default "adminUsername" }}
+            - name: COUCHDB_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.extraSecretName | default (include "couchdb.fullname" .) }}
+                  key: {{ .Values.adminPasswordKey | default "adminPassword" }}
+            - name: COUCHDB_READER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.extraSecretName | default (include "couchdb.fullname" .) }}
+                  key: {{ .Values.adminPasswordKey | default "readerPassword" }}
+{{- end }}
+{{- end }}
+          {{- if .Values.containerSecurityContext }}
+          securityContext: {{ .Values.containerSecurityContext | toYaml | nindent 12 }}
+          {{- end }}
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 600
+{{- end -}}
+{{- end -}}

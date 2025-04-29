@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - master
+      - couchdb_fork
 
 jobs:
   release:
