@@ -113,28 +113,38 @@ spec:
           env:
 {{- if not .Values.allowAdminParty }}
 {{- if .Values.secretProviderClass.enabled }}
-            - name: COUCHDB_ADMIN
+            - name: COUCHDB_USER
               valueFrom:
                 secretKeyRef:
                   name: {{ include "couchdb.fullname" . }}-secrets
-                  key: COUCHDB_ADMIN
-            - name: COUCHDB_ADMIN_PASSWORD
+                  key: COUCHDB_USER
+            - name: COUCHDB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "couchdb.fullname" . }}-secrets
-                  key: COUCHDB_ADMIN_PASSWORD
+                  key: COUCHDB_PASSWORD
             - name: COUCHDB_READER_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "couchdb.fullname" . }}-secrets
                   key: COUCHDB_READER_PASSWORD
+            - name: COUCHDB_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "couchdb.fullname" . }}-secrets
+                  key: COUCHDB_SECRET
+            - name: COUCHDB_ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "couchdb.fullname" . }}
+                  key: COUCHDB_ERLANG_COOKIE
 {{- else }}
-            - name: COUCHDB_ADMIN
+            - name: COUCHDB_USER
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.extraSecretName | default (include "couchdb.fullname" .) }}
                   key: {{ .Values.adminUsernameKey | default "adminUsername" }}
-            - name: COUCHDB_ADMIN_PASSWORD
+            - name: COUCHDB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.extraSecretName | default (include "couchdb.fullname" .) }}
@@ -144,18 +154,17 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.extraSecretName | default (include "couchdb.fullname" .) }}
                   key: {{ .Values.adminPasswordKey | default "readerPassword" }}
-{{- end }}
             - name: COUCHDB_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ template "couchdb.fullname" . }}
                   key: cookieAuthSecret
-{{- end }}
             - name: COUCHDB_ERLANG_COOKIE
               valueFrom:
                 secretKeyRef:
                   name: {{ template "couchdb.fullname" . }}
                   key: erlangCookie
+{{- end }}
             - name: ERL_FLAGS
               value: "{{ range $k, $v := .Values.erlangFlags }} -{{ $k }} {{ $v }} {{ end }}"
 {{- if .Values.extraEnv }}
@@ -212,6 +221,11 @@ spec:
 {{- end }}
           - name: database-storage
             mountPath: /opt/couchdb/data
+          {{- if .Values.secretProviderClass.enabled }}
+          - mountPath: /mnt/secrets-store
+            name: couchdb-secret-volume
+            readOnly: true
+          {{- end }}          
           {{- if .Values.containerSecurityContext }}
           securityContext: {{ .Values.containerSecurityContext | toYaml | nindent 12 }}
           {{- end }}
@@ -270,12 +284,12 @@ spec:
 {{- end -}}
 
 {{- if .Values.secretProviderClass.enabled }}
-        - name: secrets-store-inline
+        - name: couchdb-secret-volume
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: {{ include "couchdb.fullname" . }}-spc
+              secretProviderClass: couchdb
 {{- end }}
 
 {{- if not .Values.persistentVolume.enabled }}
