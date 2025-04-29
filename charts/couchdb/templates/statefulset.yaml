@@ -136,7 +136,7 @@ spec:
             - name: COUCHDB_ERLANG_COOKIE
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "couchdb.fullname" . }}
+                  name: {{ template "couchdb.fullname" . }}-secrets
                   key: COUCHDB_ERLANG_COOKIE
 {{- else }}
             - name: COUCHDB_USER
