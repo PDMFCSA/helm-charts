@@ -165,6 +165,7 @@ spec:
                   name: {{ template "couchdb.fullname" . }}
                   key: erlangCookie
 {{- end }}
+{{- end }}
             - name: ERL_FLAGS
               value: "{{ range $k, $v := .Values.erlangFlags }} -{{ $k }} {{ $v }} {{ end }}"
 {{- if .Values.extraEnv }}
