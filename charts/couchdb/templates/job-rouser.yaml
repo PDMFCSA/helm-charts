@@ -38,8 +38,8 @@ spec:
                 echo "Waiting for CouchDB to be ready..."
                 sleep 5
               done
-              curl -X PUT -u "$COUCHDB_ADMIN:$COUCHDB_ADMIN_PASSWORD" http://$COUCHDB_ADDRESS/_users
-              curl -X PUT -u "$COUCHDB_ADMIN:$COUCHDB_ADMIN_PASSWORD" http://$COUCHDB_ADDRESS/_users/org.couchdb.user:reader \
+              curl -X PUT -u "$COUCHDB_USER:$COUCHDB_PASSWORD" http://$COUCHDB_ADDRESS/_users
+              curl -X PUT -u "$COUCHDB_USER:$COUCHDB_PASSWORD" http://$COUCHDB_ADDRESS/_users/org.couchdb.user:reader \
                    -H "Content-Type: application/json" \
                    -d '{
                          "name": "reader",
@@ -52,16 +52,16 @@ spec:
               value: "{{ template "couchdb.svcname" . }}.{{ .Release.Namespace }}.svc.{{ default "cluster.local" .Values.dns.clusterDomainSuffix }}:{{ .Values.service.externalPort}}"
 {{- if not .Values.allowAdminParty }}
 {{- if .Values.secretProviderClass.enabled }}
-            - name: COUCHDB_ADMIN
+            - name: COUCHDB_USER
               valueFrom:
                 secretKeyRef:
                   name: {{ include "couchdb.fullname" . }}-secrets
-                  key: COUCHDB_ADMIN
-            - name: COUCHDB_ADMIN_PASSWORD
+                  key: COUCHDB_USER
+            - name: COUCHDB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "couchdb.fullname" . }}-secrets
-                  key: COUCHDB_ADMIN_PASSWORD
+                  key: COUCHDB_PASSWORD
             - name: COUCHDB_READER_PASSWORD
               valueFrom:
                 secretKeyRef:
