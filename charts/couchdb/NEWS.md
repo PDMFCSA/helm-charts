@@ -1,5 +1,12 @@
 # NEWS
 
+## 4.6.1
+
+- Forked the official helmchart
+- add the secret provider class
+- add the anotations on service account
+- add a job after deploy to create a read-only user
+
 ## 4.5.7
 
 - Add support for extra secrets not created by the chart, such as Hashicorp Vault or OpenBao.

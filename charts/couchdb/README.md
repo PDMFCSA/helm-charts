@@ -16,8 +16,8 @@ storage volumes to each Pod in the Deployment.
 ## TL;DR
 
 ```bash
-$ helm repo add couchdb https://apache.github.io/couchdb-helm
-$ helm install couchdb/couchdb \
+$ helm repo add pharmaledgerassoc https://pharmaledgerassoc.github.io/helm-charts
+$ helm install pharmaledgerassoc/couchdb \
   --version=4.6.1 \
   --set allowAdminParty=true \
   --set couchdbConfig.couchdb.uuid=$(curl https://www.uuidgenerator.net/api/version4 2>/dev/null | tr -d -)
@@ -35,7 +35,7 @@ To install the chart with the release name `my-release`:
 Add the CouchDB Helm repository:
 
 ```bash
-$ helm repo add couchdb https://apache.github.io/couchdb-helm
+$ helm repo add pharmaledger https://pharmaledgerassoc.github.io/helm-charts
 ```
 
 Afterwards install the chart replacing the UUID
@@ -46,7 +46,7 @@ $ helm install \
   --name my-release \
   --version=4.6.1 \
   --set couchdbConfig.couchdb.uuid=decafbaddecafbaddecafbaddecafbad \
-  couchdb/couchdb
+  pharmaledgerassoc/couchdb
 ```
 
 This will create a Secret containing the admin credentials for the cluster.
@@ -81,7 +81,80 @@ $ helm install \
   --version=4.6.1 \
   --set createAdminSecret=false \
   --set couchdbConfig.couchdb.uuid=decafbaddecafbaddecafbaddecafbad \
-  couchdb/couchdb
+  pharmaledgerassoc/couchdb
+```
+
+If you want to use an Secret Provider Class
+Must fill the spec on values like this:
+
+```bash
+# Settings for using SecretProviderClass (CSI Secrets driver) instead of Secret.
+secretProviderClass:
+  enabled: true
+  spec:
+    provider: aws
+    parameters:
+      objects: |
+        - objectName: ${aws_secretsmanager_secret.couchdb.arn}
+          objectType: "secretsmanager"
+          jmesPath:
+            - path: COUCHDB_USER
+              objectAlias: COUCHDB_USER
+            - path: COUCHDB_PASSWORD
+              objectAlias: COUCHDB_PASSWORD
+            - path: COUCHDB_READER_PASSWORD
+              objectAlias: COUCHDB_READER_PASSWORD
+            - path: UUID
+              objectAlias: UUID
+            - path: COUCHDB_SECRET
+              objectAlias: COUCHDB_SECRET
+            - path: COUCHDB_ERLANG_COOKIE
+              objectAlias: COUCHDB_ERLANG_COOKIE
+    secretObjects:
+      - secretName: couchdb-couchdb-secrets
+        type: Opaque
+        data:
+          - objectName: COUCHDB_USER
+            key: COUCHDB_USER
+          - objectName: COUCHDB_PASSWORD
+            key: COUCHDB_PASSWORD
+          - objectName: COUCHDB_READER_PASSWORD
+            key: COUCHDB_READER_PASSWORD
+          - objectName: UUID
+            key: UUID
+          - objectName: COUCHDB_SECRET
+            key: COUCHDB_SECRET
+          - objectName: COUCHDB_ERLANG_COOKIE
+            key: COUCHDB_ERLANG_COOKIE
+```
+
+When using SecretProviderClass the secret needs to be created manually on provider.
+Example of the secrets required.
+
+```bash
+{
+  "COUCHDB_ADMIN": "admin",
+  "COUCHDB_ADMIN_PASSWORD": "@ocm06vQvnzf?1H6",
+  "COUCHDB_READER_PASSWORD": "BfZ*5ToAmJtab*lY",
+  "UUID": "5fcb2906-9db6-f587-c1ce-8ca857dcc57c"
+}
+```
+
+Also add the required anotation on service account to allow retrieve secrets.
+
+```bash
+serviceAccount:
+  create: true
+  name: couchdb
+  annotations:
+    eks.amazonaws.com/role-arn: ${aws_iam_role.couchdb.arn}
+```
+
+To create a read only user after deploy it's required to set it true on values.
+
+```bash
+readerUserSetup:
+  enabled: true
 ```
 
 This Helm chart deploys CouchDB on the Kubernetes cluster in a default
@@ -100,41 +173,6 @@ $ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and
 deletes the release.
-
-## Upgrading an existing Release to a new major version
-
-A major chart version change (like v0.2.3 -> v1.0.0) indicates that there is an
-incompatible breaking change needing manual actions.
-
-### Upgrade to 3.0.0
-
-Since version 3.0.0 setting the CouchDB server instance UUID is mandatory.
-Therefore you need to generate a UUID and supply it as a value during the
-upgrade as follows:
-
-```bash
-$ helm upgrade <release-name> \
-  --version=3.6.4 \
-  --reuse-values \
-  --set couchdbConfig.couchdb.uuid=<UUID> \
-  couchdb/couchdb
-```
-
-### Upgrade to 4.0.0
-
-Breaking change between v3 and v4 is the `adminHash` in the secret that no longer uses
-the `password.ini`. It stores the `adminHash` only instead, make sure to change it if you
-use your own secret.
-
-## Migrating from stable/couchdb
-
-This chart replaces the `stable/couchdb` chart previously hosted by Helm and continues the
-version semantics. You can upgrade directly from `stable/couchdb` to this chart using:
-
-```bash
-$ helm repo add pharmaledgerassoc https://apache.github.io/couchdb-helm
-$ helm upgrade my-release --version=4.6.1 couchdb/couchdb
-```
 
 ## Configuration
 
@@ -156,7 +194,7 @@ CouchDB chart and their default values:
 | autoSetup.image.tag | string | `"latest"` |  |
 | clusterSize | int | `3` | the initial number of nodes in the CouchDB cluster. |
 | couchdbConfig | object | `{"chttpd":{"bind_address":"any","require_valid_user":false}}` | couchdbConfig will override default CouchDB configuration settings. The contents of this map are reformatted into a .ini file laid down by a ConfigMap object. ref: http://docs.couchdb.org/en/latest/config/index.html |
-| createAdminSecret | bool | `true` | If createAdminSecret is enabled a Secret called <ReleaseName>-couchdb will be created containing auto-generated credentials. Users who prefer to set these values themselves have a couple of options:  1) The `adminUsername`, `adminPassword`, `adminHash`, and `cookieAuthSecret`    can be defined directly in the chart's values. Note that all of a chart's    values are currently stored in plaintext in a ConfigMap in the tiller    namespace.  2) This flag can be disabled and a Secret with the required keys can be    created ahead of time. |
+| createAdminSecret | bool | `false` | If createAdminSecret is enabled a Secret called <ReleaseName>-couchdb will be created containing auto-generated credentials. Users who prefer to set these values themselves have a couple of options:  1) The `adminUsername`, `adminPassword`, `adminHash`, and `cookieAuthSecret`    can be defined directly in the chart's values. Note that all of a chart's    values are currently stored in plaintext in a ConfigMap in the tiller    namespace.  2) This flag can be disabled and a Secret with the required keys can be    created ahead of time. |
 | dns.clusterDomainSuffix | string | `"cluster.local"` |  |
 | enableSearch | bool | `false` | Flip this to flag to include the Search container in each Pod |
 | erlangFlags | object | `{"name":"couchdb"}` | erlangFlags is a map that is passed to the Erlang VM as flags using the ERL_FLAGS env. The `name` flag is required to establish connectivity between cluster nodes. ref: http://erlang.org/doc/man/erl.html#init_flags |
@@ -187,9 +225,9 @@ CouchDB chart and their default values:
 | livenessProbe.timeoutSeconds | int | `1` |  |
 | networkPolicy.enabled | bool | `true` |  |
 | persistentVolume | object | `{"accessModes":["ReadWriteOnce"],"annotations":{},"enabled":false,"existingClaims":[],"size":"10Gi"}` | The storage volume used by each Pod in the StatefulSet. If a persistentVolume is not enabled, the Pods will use `emptyDir` ephemeral local storage. Setting the storageClass attribute to "-" disables dynamic provisioning of Persistent Volumes; leaving it unset will invoke the default provisioner. |
-| persistentVolumeClaimRetentionPolicy.enabled | bool | `false` |  |
-| persistentVolumeClaimRetentionPolicy.whenDeleted | string | `"Retain"` |  |
-| persistentVolumeClaimRetentionPolicy.whenScaled | string | `"Retain"` |  |
+| persistentVolumeClaimRetentionPolicy.enabled | bool | `false` | Sets the persistentVolumeClaimRetentionPolicy enable for Statefulset PVC |
+| persistentVolumeClaimRetentionPolicy.whenDeleted | string | `"Retain"` | Can be set as Retain or Delete, if on Delete the pv will be deleted if the statefulset was removed. |
+| persistentVolumeClaimRetentionPolicy.whenScaled | string | `"Retain"` | Must be set as Retain to allow scale down and scale up withour remove the pv |
 | placementConfig.enabled | bool | `false` |  |
 | placementConfig.image.repository | string | `"caligrafix/couchdb-autoscaler-placement-manager"` |  |
 | placementConfig.image.tag | string | `"0.1.0"` |  |
@@ -213,7 +251,7 @@ CouchDB chart and their default values:
 | searchImage.tag | string | `"0.2.0"` |  |
 | secretProviderClass.apiVersion | string | `"secrets-store.csi.x-k8s.io/v1"` | API Version of the SecretProviderClass |
 | secretProviderClass.enabled | bool | `false` |  |
-| secretProviderClass.spec | object | `{}` | Spec for the SecretProviderClass. Note: The orgAccountJson must be mounted as objectAlias orgAccountJson |
+| secretProviderClass.spec | object | `{}` | Spec for the SecretProviderClass. |
 | service.annotations | object | `{}` |  |
 | service.enabled | bool | `true` |  |
 | service.externalPort | int | `5984` |  |
@@ -221,7 +259,7 @@ CouchDB chart and their default values:
 | service.labels | object | `{}` |  |
 | service.targetPort | int | `5984` |  |
 | service.type | string | `"ClusterIP"` |  |
-| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.annotations | object | `{}` | Add required anotations to Service account |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.enabled | bool | `true` |  |
 | sidecars | object | `{}` |  |
