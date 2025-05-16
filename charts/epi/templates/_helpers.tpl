@@ -177,6 +177,7 @@ Taken from https://github.com/pharmaledgerassoc/epi-workspace/blob/v1.3.1/apihub
     "bdns",
     "bricking",
     "anchoring",
+    "get-fixed-url",
     "epi-mapping-engine",
     "epi-mapping-engine-results",
     "get-gtin-owner",
@@ -292,6 +293,7 @@ Configuration apihub.json for read only mode
     "bdns",
     "bricking",
     "anchoring",
+    "get-fixed-url",
     "leaflet-web-api",
     "metadata",
     "get-gtin-owner",
@@ -310,6 +312,14 @@ Configuration apihub.json for read only mode
     "metadata": {
         "module": "./../../gtin-resolver",
         "function": "getMetadata"
+    },
+    "get-fixed-url": {
+      "module": "./../../gtin-resolver",
+      "function": "getFixedUrl"
+    },
+    "metadata": {
+          "module": "./../../gtin-resolver",
+          "function": "getMetadata"
     },
     "staticServer": {
         "excludedFiles": [

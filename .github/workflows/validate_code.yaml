@@ -37,7 +37,7 @@ jobs:
       - uses: pre-commit/action@v3.0.1
         name: Run pre-commit
         with:
-          extra_args: --files charts/ethadapter/* charts/epi/* charts/fgt/* charts/quorum-node/*
+          extra_args: --files charts/ethadapter/* charts/epi/* charts/fgt/* charts/quorum-node/* charts/couchdb/*
 
   checkov:
     runs-on: ubuntu-latest
