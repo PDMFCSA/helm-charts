@@ -501,6 +501,18 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/eco-iot-0.0.6/eco-iot-0.0.6.tgz
     version: 0.0.6
+  ema:
+  - apiVersion: v1
+    appVersion: 0.0.1
+    created: "2025-07-15T12:15:25.64789789Z"
+    description: Helm Chart for Ema Demostration
+    digest: 06f7f468f5749d2f5402ca089ce6ecb0dea583603f04c2d6217c459569cf229a
+    keywords:
+    - ema
+    name: ema
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/ema-0.0.1/ema-0.0.1.tgz
+    version: 0.0.1
   epi:
   - apiVersion: v2
     appVersion: 3.0.0-rc73
@@ -2983,4 +2995,4 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/standalone-quorum-0.3.0/standalone-quorum-0.3.0.tgz
     version: 0.3.0
-generated: "2025-05-07T17:09:37.539169944Z"
+generated: "2025-07-15T12:15:25.821533599Z"
