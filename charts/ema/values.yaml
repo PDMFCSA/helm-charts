@@ -1,0 +1,53 @@
+replicaCount: 1
+
+image:
+  repository: dregistry.pdmfc.com/pdmfcsa/backend-ema
+  tag: 0.0.2
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+# Use this if want to set all with env varibles instead of secretref or configmapref
+env: {}
+#  PLA_USER: "ema"
+#  PLA_USER_PASSWORD: "emapassword"
+#  DB_PORT: "5432"
+#  DB_HOST: "postgres"
+#  CORS_ORIGINS: "http://localhost:8080" # LWA URL
+
+# For loading environment variables from a secret or configMap
+envFrom: [] 
+# 
+#  - secretRef: myapp-secret
+#  - configMapRef: myapp-config
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: nestjs.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+postgresql:
+  auth:
+    username: ""
+    password: ""
+    database: ""
+    existingSecret: ""
+    secretKeys:
+      adminPasswordKey: postgres-password
+      userPasswordKey: password
+
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+      
+  initdbScriptsSecret: ""
+  initdbScriptsConfigMap: ""

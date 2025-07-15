@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - master
+      - ema
 
 jobs:
   release:
