@@ -24,6 +24,9 @@ spec:
       {{- if .Values.podSecurityContext }}
       securityContext: {{ .Values.podSecurityContext | toYaml | nindent 8 }}
       {{- end }}
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets: {{ .Values.imagePullSecrets | toYaml | nindent 8 }}
+      {{- end }}
       containers:
         - name: cluster-setup
           image: {{ .Values.autoSetup.image.repository }}:{{ .Values.autoSetup.image.tag }}

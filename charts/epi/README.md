@@ -22,10 +22,8 @@ A Helm chart for Pharma Ledger epi (electronic product information) application
 
 ## Changelog
 
-
 - From 0.7.12 to 0.7.13 - Defaults to use epi 4.0.0
   - Change on builder to run the migrations
-
 
 - On 0.7.12 - Defaults to use epi 4.0.0
   - Changes was done on apihub.json to add couchdb

@@ -1,5 +1,9 @@
 # NEWS
 
+## 4.6.2
+
+- add `imagePullSecrets` also on jobs.
+
 ## 4.6.1
 
 - Forked the official helmchart

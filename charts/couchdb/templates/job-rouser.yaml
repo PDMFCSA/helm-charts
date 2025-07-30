@@ -27,6 +27,9 @@ spec:
       {{- if .Values.serviceAccount.enabled }}
       serviceAccountName: {{ template "couchdb.serviceAccount" . }}
       {{- end }}
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets: {{ .Values.imagePullSecrets | toYaml | nindent 8 }}
+      {{- end }}
       containers:
         - name: readuser-setup
           image: {{ .Values.readerUserSetup.image.repository }}:{{ .Values.readerUserSetup.image.tag }}
