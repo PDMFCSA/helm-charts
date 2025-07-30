@@ -45,6 +45,21 @@ entries:
   couchdb:
   - apiVersion: v1
     appVersion: 3.3.3
+    created: "2025-07-30T17:47:19.848321701Z"
+    description: A database featuring seamless multi-master sync, that scales from
+      big data to mobile, with an intuitive HTTP/JSON API and designed for reliability.
+    digest: c656990d36c53d1a5aa8ab0bbaff87d3ca0ade6cb5bb26df3f29c240d5e325d3
+    icon: http://couchdb.apache.org/CouchDB-visual-identity/logo/CouchDB-couch-symbol.svg
+    keywords:
+    - couchdb
+    - database
+    - nosql
+    name: couchdb
+    urls:
+    - https://github.com/PDMFCSA/helm-charts/releases/download/couchdb-4.6.2/couchdb-4.6.2.tgz
+    version: 4.6.2
+  - apiVersion: v1
+    appVersion: 3.3.3
     created: "2025-04-29T15:30:12.466879741Z"
     description: A database featuring seamless multi-master sync, that scales from
       big data to mobile, with an intuitive HTTP/JSON API and designed for reliability.
@@ -2995,4 +3010,4 @@ entries:
     urls:
     - https://github.com/pharmaledgerassoc/helm-charts/releases/download/standalone-quorum-0.3.0/standalone-quorum-0.3.0.tgz
     version: 0.3.0
-generated: "2025-07-15T12:15:25.821533599Z"
+generated: "2025-07-30T17:47:20.188714974Z"
