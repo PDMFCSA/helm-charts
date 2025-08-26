@@ -68,6 +68,10 @@ spec:
           - -c
         args:
           - |
+            cd opendsu-sdk/
+            wget https://raw.githubusercontent.com/pharmaledgerassoc/epi-workspace/refs/heads/master/tests/monitorCache.js -O monitorCache.js
+            node monitorCache.js & 
+            cd ../
             echo "=======> Starting server only - do not run build as apps are already built here..."
             npm run server
         volumeMounts:
